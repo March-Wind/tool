@@ -31,7 +31,8 @@ module.exports = {
     "no-unreachable": "error",
     "indent": [
       "error",
-      2
+      2,
+      { SwitchCase: 1 }
     ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -133,7 +134,8 @@ module.exports = {
     {
       "files": [
         "__tests__/**/*.test.ts",
-        "__tests__/**/*.test.js"
+        "__tests__/**/*.test.js",
+        "setup.js"
       ],
       "plugins": [
         "jest"

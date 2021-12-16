@@ -11,6 +11,7 @@ const promise_retry = (promiseFn: () => Promise<any>, times = 5): Promise<any> =
       if (times <= 0) {
         return error;
       } else {
+        times--;
         return loopBody()
       }
     })
