@@ -7,11 +7,12 @@ module.exports = {
   ],
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:react/jsx-runtime",
     "plugin:jsx-control-statements/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
   ],
   "env": {
     "browser": true,
@@ -26,14 +27,19 @@ module.exports = {
     "parrser": "babel-eslint"
   },
   "rules": {
-    "no-undef": "error",
+    // "no-undef": "error",
     "no-constant-condition": "error",
     "no-unreachable": "error",
     "indent": [
       "error",
       2,
-      { SwitchCase: 1 }
+      {
+        SwitchCase: 1,
+        ignoredNodes: ['ConditionalExpression'],
+      },
     ],
+    "no-duplicate-imports": "error",
+    "@typescript-eslint/no-duplicate-imports": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "jsx-control-statements/jsx-jcs-no-undef": [
@@ -55,7 +61,7 @@ module.exports = {
     "no-mixed-spaces-and-tabs": 0,
     "import/no-named-as-default": 0,
     "import/first": 0,
-    "no-var": 1,
+    "no-var": "error",
     "no-unused-expressions": 0,
     "no-trailing-spaces": 0,
     "eol-last": 0,
@@ -100,13 +106,13 @@ module.exports = {
     "no-alert": 0,
     "global-require": 0,
     "no-lone-blocks": 0,
-    "no-unused-vars": [
-      "error",
-      {
-        "vars": "all",
-        "args": "none"
-      }
-    ],
+    // "no-unused-vars": [
+    //   "error",
+    //   {
+    //     "vars": "all",
+    //     "args": "none"
+    //   }
+    // ],
     "no-extend-native": 0,
     "import/no-extraneous-dependencies": 0,
     "arrow-body-style": 0,
@@ -134,8 +140,7 @@ module.exports = {
     {
       "files": [
         "__tests__/**/*.test.ts",
-        "__tests__/**/*.test.js",
-        "setup.js"
+        "__tests__/**/*.test.js"
       ],
       "plugins": [
         "jest"
@@ -145,6 +150,14 @@ module.exports = {
       ],
       "parserOptions": {
         "jest/globals": true
+      }
+    }, {
+      "files": [
+        '**/*.d.ts'
+      ],
+      rules: {
+        '@typescript-eslint/no-unused-vars': 0,
+        'no-unused-vars': 0
       }
     }
   ]

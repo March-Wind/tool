@@ -19,7 +19,13 @@
     "jsx": "react",
     "baseUrl": "./",
     "skipLibCheck": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "noUnusedParameters": true,
+    "strictPropertyInitialization": false,
+    "strict": true,
+    "lib": [
+      "DOM"
+    ]
   },
   "exclude": [
     "node_modules",

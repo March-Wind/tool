@@ -6,7 +6,6 @@ import { defaults as tsjPreset } from 'ts-jest/presets'
 // import tsconfig from './tsconfig.json'; // 这里必须是这个标准的json
 // const { compilerOptions } = tsconfig
 const config: InitialOptionsTsJest = {
-  // automock: true,
   // [...]
   roots: [
     "<rootDir>/__tests__"
@@ -15,11 +14,8 @@ const config: InitialOptionsTsJest = {
   extensionsToTreatAsEsm: ['.ts'],
   transform: {
     ...tsjPreset.transform,
-    // "^.+\\.(ts|tsx)$": "typescript-babel-jest"
     // [...]
   },
-  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-  // "testRegex": "/__tests__/.*\\.test\\.(ts|tsx)$",
   globals: {
     'ts-jest': {
       useESM: true,
@@ -31,7 +27,5 @@ const config: InitialOptionsTsJest = {
     // ...pathsToModuleNameMapper(compilerOptions.paths /*, { prefix: '<rootDir>/' } */) // 跟tsconfig的paths一致
   }
 }
+
 export default config
-
-
-// __mocks__用来mock node_modules里的模块的

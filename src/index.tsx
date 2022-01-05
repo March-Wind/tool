@@ -26,3 +26,6 @@ const App = () => {
   return <div onClick={onclick}>copy</div>
 }
 ReactDOM.render(<App />, document.getElementById('app'))
+
+
+
