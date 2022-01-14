@@ -38,7 +38,7 @@ module.exports = {
         ignoredNodes: ['ConditionalExpression'],
       },
     ],
-    "no-duplicate-imports": "error",
+    // "no-duplicate-imports": "error",
     "@typescript-eslint/no-duplicate-imports": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",

@@ -10,8 +10,9 @@
         "dev:node:debugger": "TS_NODE_PROJECT=./tsconfig.json node --inspect-brk  --loader ts-node/esm  ./src/index.ts",
         "prepublish": "npm run build ",
         "eslint": "eslint ./src/**/* --fix",
-        "test": "jest --passWithNoTests",
-        "eslint2": "eslint ./src/**/* --fix"
+        "test": "jest __tests__/router-event.ts --passWithNoTests",
+        "eslint2": "eslint ./src/**/* --fix",
+        "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand  __tests__/router-event.ts"
     },
     "author": "",
     "license": "ISC",
@@ -21,6 +22,7 @@
         "@rollup/plugin-replace": "^3.0.0",
         "@rollup/plugin-typescript": "^8.3.0",
         "@types/jest": "^27.0.3",
+        "@types/jsdom": "^16.2.14",
         "@types/node": "^17.0.0",
         "@types/react": "^17.0.37",
         "@types/react-dom": "^17.0.11",
@@ -50,6 +52,7 @@
         "eslint-plugin-jsx-control-statements": "^2.2.1",
         "eslint-plugin-react": "^7.27.1",
         "eslint-plugin-react-hooks": "^4.3.0",
+        "jsdom": "^19.0.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2"
     },

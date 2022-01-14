@@ -12,6 +12,7 @@ const config: InitialOptionsTsJest = {
   ],
   preset: 'ts-jest/presets/default-esm', // or other ESM presets
   extensionsToTreatAsEsm: ['.ts'],
+  // testEnvironment: "jsdom",
   transform: {
     ...tsjPreset.transform,
     // [...]

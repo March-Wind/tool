@@ -1,6 +1,7 @@
 import { copypasteboard } from './businessFunction/copypasteboard'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import RouterEvent from './browser/routeEvents'
 /**
  * 加法
  * @param num1 
@@ -28,4 +29,13 @@ const App = () => {
 ReactDOM.render(<App />, document.getElementById('app'))
 
 
+// listender List API
+//
+const route = new RouterEvent();
+route.on('pushState', (data, title, url) => {
+  console.log('pushState event', data, title, url);
+})
+route.on('backButton', () => {
+  console.log('Click the browser Back buttonbrowser back button');
+})
 

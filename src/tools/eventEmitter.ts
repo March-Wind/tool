@@ -1,18 +1,19 @@
+type Keys<V> = keyof V;
 /**
  * 
  * 基础版本发布订阅
  * @class BaseEventEmitter
  * @template T
  */
-class BaseEventEmitter<T = string> {
+class BaseEventEmitter<CB extends Record<Keys<CB>, CB[Keys<CB>]>>{
   protected registry: Map<any, Function[]> = new Map()
-  on(type: T, listener: Function) {
+  on<K extends Keys<CB>>(type: K, listener: CB[K]) {
     if (!this.registry.has(type)) {
       this.registry.set(type, []);
     }
     this.registry.get(type)?.push(listener);
   }
-  off(type: T, listener: Function): void {
+  off<K extends Keys<CB>>(type: K, listener: CB[K]): void {
     if (!this.registry.has(type)) {
       return;
     }
@@ -24,13 +25,13 @@ class BaseEventEmitter<T = string> {
       }
     }
   }
-  emit<V>(type: T, params?: V) {
+  emit(type: Keys<CB>, ...args: any[]) {
     if (!this.registry.has(type)) {
       return;
     }
     const stack = this.registry.get(type)!;
     for (let i = 0, l = stack.length; i < l; i++) {
-      stack[i](params)
+      stack[i](...args)
     }
   }
 }
@@ -41,8 +42,8 @@ class BaseEventEmitter<T = string> {
  * @extends {BaseEventEmitter<T>}
  * @template T
  */
-class EventEmitter<T = string> extends BaseEventEmitter<T> {
-  once(type: T, listener: Function) {
+class EventEmitter<CB extends Record<Keys<CB>, CB[Keys<CB>]>> extends BaseEventEmitter<CB> {
+  once<K extends Keys<CB>>(type: K, listener: CB[K]) {
     if (!this.registry.has(type)) {
       this.registry.set(type, []);
     }

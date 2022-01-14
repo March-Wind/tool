@@ -1,7 +1,9 @@
 /**
- * 
- * @param promiseFn 
- * @returns 
+ * promise失败重试，
+ *
+ * @param {() => Promise<any>} promiseFn 返回promise的函数
+ * @param {number} [times=5] 次数
+ * @return {*}  {Promise<any>}
  */
 const promise_retry = (promiseFn: () => Promise<any>, times = 5): Promise<any> => {
   const loopBody = (): Promise<any> => {

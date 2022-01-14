@@ -9,7 +9,7 @@ import nodeExternals from 'rollup-plugin-node-externals';
 import serve from 'rollup-plugin-serve';
 import replace from '@rollup/plugin-replace';
 const sdk_Config = {
-  input: 'src/index.ts',
+  input: 'src/index.tsx',
   external: ['react'],
   output: {
     file: 'lib/index.js',
@@ -68,7 +68,8 @@ const dev_web_Config = {
       open: true,
       openPage: '/public/index.html', // 打开的页面
       port: 3000,
-      contentBase: ''
+      contentBase: '',
+      historyApiFallback: true
     })
     // globals(),
     // builtins(),
