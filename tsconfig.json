@@ -7,7 +7,7 @@
     }
   },
   "compilerOptions": {
-    "module": "esnext",
+    "module": "es2015",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
