@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import RouterEvent from './browser/routeEvents'
 /**
  * 加法
- * @param num1 
- * @param num2 
- * @returns 
+ * @param num1
+ * @param num2
+ * @returns
  */
 const sum = (num1: number, num2: number) => {
   return num1 + num2;

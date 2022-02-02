@@ -1,5 +1,5 @@
-import { promise_retry } from '../src/tools/retry'
-describe("promise retry", () => {
+import { promise_retry } from '../../src/tools/promise/retry'
+describe("promise.retry", () => {
   let num = 5;
   const fetchData = (): Promise<any> => {
     return new Promise((resolve, reject) => {

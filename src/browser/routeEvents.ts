@@ -100,7 +100,7 @@ class RouterEvent extends EventEmitter<CB> {
 
     /**
      * 判断浏览器的前进和后退按钮，
-     * 
+     *
      * location.hash在popstateEvent后面触发，所以不影响判断浏览器的前进和后退按钮，
      * 同时location.hash不会产生this.currentIndex 和 this.prevIndex的相对位置的差距，
      * 综上两点在这里可以判断是点击了浏览器的前进和后退按钮，
@@ -123,7 +123,7 @@ class RouterEvent extends EventEmitter<CB> {
       }
     }
 
-    if (current === this.routeStack[this.currentIndex]) {// to do hash reload事件, 
+    if (current === this.routeStack[this.currentIndex]) {// to do hash reload事件,
       this.hashBackOrForward_pauseAddRoute2Stack = true;
       // 相等是说明是hash路由重复跳了当前指针路由，
     }
