@@ -18,6 +18,8 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@commitlint/cli": "^16.1.0",
+        "@commitlint/config-conventional": "^16.0.0",
         "@rollup/plugin-commonjs": "^21.0.1",
         "@rollup/plugin-image": "^2.1.1",
         "@rollup/plugin-replace": "^3.0.0",
@@ -30,9 +32,11 @@
         "cross-env": "^7.0.3",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-jest": "^25.3.0",
+        "husky": "^7.0.4",
         "jest": "^27.4.5",
         "jest-extended": "^1.2.0",
         "less": "^4.1.2",
+        "lint-staged": "^12.3.3",
         "markdown-eslint-parser": "^1.2.1",
         "postcss": "^8.4.5",
         "prettier": "2.5.1",
@@ -68,5 +72,13 @@
         "lib/*",
         "*.md",
         "package.json"
-    ]
+    ],
+    "lint-staged": {
+      "**.{js,jsx,ts,tsx}": [
+        "eslint --fix",
+        "prettier --config .prettierrc --write"
+      ],
+      "*.+(css|less|scss|sass)": "stylelint --fix"
+  }
+
 }
