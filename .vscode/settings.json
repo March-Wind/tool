@@ -16,5 +16,9 @@
     "css.validate": false,
     "less.validate": false,
     "scss.validate": false,
-    "stylelint.validate": ["css", "scss","less"]
+    "stylelint.validate": [
+        "css",
+        "scss",
+        "less"
+    ]
 }
