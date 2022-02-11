@@ -51,7 +51,7 @@ class Vector {
     const dotProduct = this.normalization().dotProduct(vect.normalization());
     return calculation.areEqual(dotProduct, 0)
   }
-  angleBetween(other) {
+  angleBetween(other: any) {
     return calculation.rad2Degrees(
       Math.acos(
         this.dotProduct(other) /

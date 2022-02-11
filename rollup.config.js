@@ -21,7 +21,7 @@ const sdk_Config = {
   },
   plugins: [
     nodeExternals(),
-    rollupTypescript(),
+    rollupTypescript({tsconfig: './tsconfig.json'}),
     image(),
     postcss(),
     nodeResolve({ preferBuiltins: false }), // or `true`

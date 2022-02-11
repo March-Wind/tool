@@ -2,6 +2,9 @@ import { copypasteboard } from './businessFunction/copypasteboard'
 import React from 'react'
 import ReactDOM from 'react-dom';
 import RouterEvent from './browser/routeEvents'
+import {proxy, unProxy} from "ajax-hook";
+
+// import Monitoring from './security-monitoring';
 /**
  * 加法
  * @param num1
@@ -39,3 +42,45 @@ route.on('backButton', () => {
   console.log('Click the browser Back buttonbrowser back button');
 })
 
+// new Monitoring();
+
+proxy({
+  //请求发起前进入
+  onRequest: (config, handler) => {
+    console.log(config.url)
+    handler.next(config);
+  },
+  //请求发生错误时进入，比如超时；注意，不包括http状态码错误，如404仍然会认为请求成功
+  onError: (err, handler) => {
+    console.log(err.type)
+    handler.next(err)
+  },
+  //请求成功后进入
+  onResponse: (response, handler) => {
+    console.log(response.response)
+    handler.next(response)
+  }
+})
+function test(url:string) {
+  const events = ['load', 'loadend', 'timeout', 'error', 'readystatechange', 'abort']
+  debugger
+  const xhr = new XMLHttpRequest();
+  events.forEach(function (e) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    xhr['on' + e] = function (event:any) {
+      console.log('on' + e, xhr.readyState, event)
+    }
+    xhr.addEventListener(e, function (event) {
+      console.log(e, xhr.readyState, event)
+    })
+  });
+  xhr.addEventListener('load', function (event:any) {
+    console.log('response', xhr.response, event)
+  })
+  //setTimeout(()=>xhr.abort(),100)
+  xhr.open('get', url);
+  xhr.send();
+
+}
+test('https:www.baidu.c')
