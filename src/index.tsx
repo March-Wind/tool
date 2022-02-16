@@ -61,26 +61,40 @@ proxy({
     handler.next(response)
   }
 })
-function test(url:string) {
-  const events = ['load', 'loadend', 'timeout', 'error', 'readystatechange', 'abort']
-  debugger
-  const xhr = new XMLHttpRequest();
-  events.forEach(function (e) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    xhr['on' + e] = function (event:any) {
-      console.log('on' + e, xhr.readyState, event)
-    }
-    xhr.addEventListener(e, function (event) {
-      console.log(e, xhr.readyState, event)
-    })
-  });
-  xhr.addEventListener('load', function (event:any) {
-    console.log('response', xhr.response, event)
-  })
-  //setTimeout(()=>xhr.abort(),100)
-  xhr.open('get', url);
-  xhr.send();
+// function test(url:string) {
+//   const events = ['load', 'loadend', 'timeout', 'error', 'readystatechange', 'abort']
+//   debugger
+//   const xhr = new XMLHttpRequest();
+//   events.forEach(function (e) {
 
-}
-test('https:www.baidu.c')
+//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//     // @ts-ignore
+//     xhr['on' + e] = function (event:any) {
+//       console.log('on' + e, xhr.readyState, event)
+//     }
+//     xhr.addEventListener(e, function (event) {
+//       console.log(e, xhr.readyState, event)
+//     })
+//   });
+//   xhr.addEventListener('load', function (event:any) {
+//     console.log('response', xhr.response, event)
+//   })
+//   //setTimeout(()=>xhr.abort(),100)
+//   xhr.open('get', url);
+//   xhr.send();
+
+// }
+// test('http:www.baidu.com')
+// const getNUmber = () => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(9);
+//     }, 100);
+//   });
+// };
+// // const number = await getNUmber();
+// const fn = async () => {
+//   const number = await getNUmber();
+//   return number;
+// };
+// console.log(fn());

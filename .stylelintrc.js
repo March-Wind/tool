@@ -8,6 +8,5 @@ module.exports = {
     "color-hex-case": "upper",
     "function-parentheses-newline-inside": "never-multi-line",
     "number-leading-zero": "never",
-
   }
 }
