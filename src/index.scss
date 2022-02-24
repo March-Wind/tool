@@ -1,0 +1,4 @@
+// IOS点击文本会有阴影，改成透明
+.removeClickBg{
+  -webkit-tap-highlight-color: transparent;
+}
