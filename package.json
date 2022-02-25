@@ -13,7 +13,7 @@
     "test": "jest --passWithNoTests",
     "eslint2": "eslint ./src/**/* --fix",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand  __tests__/router-event.ts",
-    "test2:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand __tests__/tools/optimization-function/throttle.ts"
+    "test2:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand __tests__/tools/optimization-function/debounced.ts"
   },
   "author": "",
   "license": "ISC",

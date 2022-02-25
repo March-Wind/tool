@@ -1,8 +1,8 @@
-import { isFunction } from "src/tools/variable-type";
+import { isFunction } from '@/javascript-language/variable-type';
 
 type Keys = keyof Window;
 interface DDD {
-  new(): XMLHttpRequest;
+  new (): XMLHttpRequest;
   prototype: XMLHttpRequest;
   readonly DONE: number;
   readonly HEADERS_RECEIVED: number;
@@ -30,20 +30,19 @@ const fakeClassFunction = (variable: Constructable<any>) => {
     }
   }
   // 挂载原型链
-  Object.setPrototypeOf(Constructor, Object.getPrototypeOf(variable))
+  Object.setPrototypeOf(Constructor, Object.getPrototypeOf(variable));
   // 挂载静态方法和属性
   Object.entries(variable).forEach((item: [string, any]) => {
     const [name, value] = item;
     Constructor[name] = value;
-  })
+  });
 
   //1. 静态属性和方法挂载
   Object.entries(variable).forEach((key) => {
-
-  })
+    console.log(key);
+  });
 
   return constructor as T;
-}
-
+};
 
 window.XMLHttpRequest = fakeClassFunction<DDD>(XMLHttpRequest);

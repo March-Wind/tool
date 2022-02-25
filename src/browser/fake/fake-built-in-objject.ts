@@ -1,4 +1,4 @@
-import { isFunction, isObject } from '../../tools/variable-type'
+import { isFunction, isObject } from '../../javascript-language/variable-type';
 /**
  * 支持克隆类和对象
  *
@@ -43,8 +43,4 @@ const fake = (variable: Constructable<any> | Object) => {
   if (!isFunction(variable)) {
     throw new Error('fake: 入参不合法');
   }
-
-
-
-
-}
+};
