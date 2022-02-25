@@ -1,30 +1,36 @@
 type Timeout = ReturnType<typeof setTimeout>; // 兼容browser和node环境
-
+interface Options {
+  leading?: boolean; // 边缘，也就是第一次调用是否执行
+}
 /**
- * 节流，第一次会执行,每个delay会触发一次，而不是寄存0时的函数等到delay后才执行
- *
+ * 节流
+ * 每隔delay执行一次
  * @param {Function} fn
  * @param {number} delay
  * @return {*}
  */
-const throttle = (fn: Function, delay: number) => {
-  let execute = true;
+const throttle = (fn: Function, delay: number, option: Options = {}) => {
+  const { leading = true } = option;
+  let sync = leading;
   let timer: Timeout | null = null;
+  let lastArgs: any[] = []; // 记录下来没执行的最后一次调用的参数，用在最后一个定时器来执行
   return (...args: any[]) => {
-    if (execute) {
-      fn(...args)
-      execute = false;
+    if (sync) {
+      fn(...args);
+      sync = false;
     } else {
+      lastArgs = args;
       if (timer) {
         return;
       }
       timer = setTimeout(() => {
-        execute = true;
+        fn(...lastArgs);
+        sync = true;
         clearTimeout(timer!);
         timer = null;
-      }, delay)
+      }, delay);
     }
-  }
-}
+  };
+};
 
 export default throttle;
