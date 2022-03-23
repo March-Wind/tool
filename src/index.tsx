@@ -6,6 +6,10 @@ import RouterEvent from './browser/routeEvents';
 import { proxy, unProxy } from 'ajax-hook';
 import createArrow from './browser/css-caculate-value/arrow';
 // import Monitoring from './security-monitoring';
+import fakeClassFunction from './browser/fake/fake-class-function';
+// fakeClassFunction(XMLHttpRequest)
+import expose from '@/browser/DOM/event/DOM-expose';
+
 /**
  * 加法
  * @param num1
@@ -25,7 +29,29 @@ export { sum };
 console.log(11112);
 const App = () => {
   const onclick = () => copypasteboard('nihao');
-  return <div onClick={onclick}>copy</div>;
+  const arr = [...'q23421421421412412423423'];
+  return (
+    <>
+      {arr.map((item, index) => {
+        return (
+          <div
+            style={index === 10 ? { color: 'red', height: 100 } : { height: 100 }}
+            key={item}
+            ref={(node) => {
+              if (node && index === 10) {
+                expose(node, () => {
+                  console.log(index);
+                });
+              }
+            }}
+            onClick={onclick}
+          >
+            copy
+          </div>
+        );
+      })}
+    </>
+  );
 };
 ReactDOM.render(<App />, document.getElementById('app'));
 

@@ -1,48 +1,52 @@
-import { isFunction } from '@/javascript-language/variable-type';
+/*
+ * @Author: Mach-Wind
+ * @Date: 2022-03-01 11:26:25
+ * @Last Modified by: Mach-Wind
+ * @Last Modified time: 2022-03-03 10:45:25
+ */
 
-type Keys = keyof Window;
-interface DDD {
-  new (): XMLHttpRequest;
-  prototype: XMLHttpRequest;
-  readonly DONE: number;
-  readonly HEADERS_RECEIVED: number;
-  readonly LOADING: number;
-  readonly OPENED: number;
-  readonly UNSENT: number;
-}
+import { isFunction } from '@/javascript-language/variable-type';
+import { abort } from 'process';
+type prototypeC<T> = {
+  [K in WritableKeys<T>]?: T[K];
+};
 
 /**
- * 伪装window上的class，方便对内置对象增加hooks，或者拓展对象。
- * @param {Constructable<any>} variable
+ * 伪装内置构造函数，对原生对象增加hooks或者拓展对象
+ * @date 2022-03-01
+ * @param {any} variable:T
+ * @param {any} hooks:prototypeC<C>
+ * @returns {any}
  */
-const fakeClassFunction = (variable: Constructable<any>) => {
+const fakeClassFunction = <T extends Constructable<T>, C extends Object>(variable: T, hooks: prototypeC<C>): T => {
   if (!isFunction(variable) || !variable.prototype) {
     // 非函数和箭头函数
     throw new Error('fakeClassFunction： 入参不合法！');
   }
+  const backup = new variable();
   // to do 使用eval的返回来制造动态名字，
   // eg: const a = eval(`(function(){return 1})()`)// a = 1
   // eg: const a1 = eval(`(function(){return function A(){return 1}})()`)  得到ƒ A(){return 1}
-  class Constructor {
-    constructor(parameters) {
-      const backup = variable;
-      this.instance = new backup();
+  class MyConstructor {
+    backup: Object;
+    constructor() {
+      this.backup = backup;
     }
   }
+  const obj = new MyConstructor();
   // 挂载原型链
-  Object.setPrototypeOf(Constructor, Object.getPrototypeOf(variable));
+  Object.setPrototypeOf(obj, Object.getPrototypeOf(backup));
   // 挂载静态方法和属性
-  Object.entries(variable).forEach((item: [string, any]) => {
+  Object.entries(variable).forEach((item: [keyof T, any]) => {
     const [name, value] = item;
-    Constructor[name] = value;
+    (MyConstructor as T)[name] = value;
   });
 
-  //1. 静态属性和方法挂载
-  Object.entries(variable).forEach((key) => {
-    console.log(key);
-  });
-
-  return constructor as T;
+  return MyConstructor as T;
 };
-
-window.XMLHttpRequest = fakeClassFunction<DDD>(XMLHttpRequest);
+fakeClassFunction<typeof XMLHttpRequest, XMLHttpRequest>(XMLHttpRequest, {
+  abort: () => {
+    console.log(111);
+  },
+});
+export default fakeClassFunction;

@@ -8,7 +8,8 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import nodeExternals from 'rollup-plugin-node-externals';
 import serve from 'rollup-plugin-serve';
 import replace from '@rollup/plugin-replace';
-import alias from '@rollup/plugin-alias'
+import alias from '@rollup/plugin-alias';
+import path from 'path';
 const sdk_Config = {
   input: 'src/index.tsx',
   external: ['react'],
@@ -16,9 +17,9 @@ const sdk_Config = {
     file: 'lib/index.js',
     format: 'cjs',
     globals: {
-      react: 'React'
+      react: 'React',
     },
-    banner: '#!/usr/bin/env node'
+    banner: '#!/usr/bin/env node',
   },
   plugins: [
     nodeExternals(),
@@ -33,16 +34,15 @@ const sdk_Config = {
   ],
 };
 
-
 const dev_web_Config = {
   input: 'src/index.tsx',
   // external: ['react'],
   output: {
     file: 'lib/index.js',
-    name: "tool",
+    name: 'tool',
     format: 'iife',
     globals: {
-      react: 'React'
+      react: 'React',
     },
     sourcemap: true,
   },
@@ -50,7 +50,6 @@ const dev_web_Config = {
     nodeExternals(),
     rollupTypescript({
       // "module": "esnext",
-
       // "removeComments": true,
       // "esModuleInterop": true,
       // "experimentalDecorators": true,
@@ -65,27 +64,28 @@ const dev_web_Config = {
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    serve({ // 开启本地服务
+    serve({
+      // 开启本地服务
       open: true,
       openPage: '/public/index.html', // 打开的页面
       port: 3000,
       contentBase: '',
-      historyApiFallback: true
+      historyApiFallback: true,
     }),
-    alias({ // 别名
+    alias({
+      // 别名
       entries: [
         {
           find: 'src',
-          replacement: path.resolve(__dirname, 'src')
+          replacement: path.resolve(__dirname, 'src'),
           // OR place `customResolver` here. See explanation below.
-        }
-      ]
-    })
+        },
+      ],
+    }),
     // globals(),
     // builtins(),
   ],
-
-}
+};
 let config = null;
 switch (process.env.BUILD_TYPE) {
   case 'dev:web':
@@ -96,4 +96,4 @@ switch (process.env.BUILD_TYPE) {
     break;
 }
 
-export default config
+export default config;
