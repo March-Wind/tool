@@ -1,7 +1,7 @@
 import { combine, permute, permuteTotal, combineTotal } from '@/algorithm/permute_combine/index';
 
 describe('排列算法', () => {
-  test('校验全排列个数', () => {
+  test('默认参数：数组个数的所有排列', () => {
     const arr = [1, 2, 3, 4, 5];
     const result = permute(arr);
     const total = permuteTotal(arr);
@@ -11,7 +11,14 @@ describe('排列算法', () => {
     const total2 = permuteTotal(arr2);
     expect(result2.length).toBe(total2);
   });
-  test('校验抓取任意个数排列的个数', () => {
+
+  test('各级个数的所有排列', () => {
+    const arr = [1, 2, 3, 4, 5];
+    const result = permute(arr, arr.length, true);
+    const total = permuteTotal(arr, arr.length, true);
+    expect(result.length).toBe(total);
+  });
+  test('指定选取3个数的所有排列', () => {
     const arr = [1, 2, 3, 4, 5, 6, 7];
     const result = permute(arr, 3);
     const total = permuteTotal(arr, 3);
@@ -20,15 +27,26 @@ describe('排列算法', () => {
 });
 
 describe('组合算法', () => {
-  test('全组合', () => {
+  test('默认参数：各级个数的所有组合', () => {
     const arr = ['YY', 'MM', 'DD'];
+    debugger;
     const result = combine(arr);
     const total = combineTotal(arr);
-    expect(result.length).toBe(7);
+    expect(result.length).toBe(total);
   });
-  test('选取2个数的所有组合', () => {
+  test('指定选取2个数的所有组合', () => {
     const arr = ['YY', 'MM', 'DD'];
-    const result = combine(arr, 2);
-    expect(result.length).toBe(3);
+    const grab = 2;
+    const result = combine(arr, grab, false);
+    const total = combineTotal(arr, grab, false);
+    expect(result.length).toBe(total);
+  });
+  test('指定选取2个数以及以下个数的所有组合', () => {
+    const arr = ['YY', 'MM', 'DD'];
+    const grab = 2;
+    const includeBelow = true;
+    const result = combine(arr, grab, includeBelow);
+    const total = combineTotal(arr, grab, includeBelow);
+    expect(result.length).toBe(total);
   });
 });
