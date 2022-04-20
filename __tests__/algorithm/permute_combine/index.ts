@@ -29,7 +29,6 @@ describe('排列算法', () => {
 describe('组合算法', () => {
   test('默认参数：各级个数的所有组合', () => {
     const arr = ['YY', 'MM', 'DD'];
-    debugger;
     const result = combine(arr);
     const total = combineTotal(arr);
     expect(result.length).toBe(total);
