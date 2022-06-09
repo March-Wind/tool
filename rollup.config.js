@@ -2,14 +2,16 @@ import rollupTypescript from '@rollup/plugin-typescript';
 import postcss from 'rollup-plugin-postcss';
 import image from '@rollup/plugin-image';
 import commonjs from '@rollup/plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
+// import resolve from 'rollup-plugin-node-resolve';
 // import globals from 'rollup-plugin-node-globals'; // 加global前缀
 // import builtins from 'rollup-plugin-node-builtins';
 import nodeExternals from 'rollup-plugin-node-externals';
 import serve from 'rollup-plugin-serve';
+import livereload from 'rollup-plugin-livereload';
 import replace from '@rollup/plugin-replace';
 import alias from '@rollup/plugin-alias';
 import path from 'path';
+import resolve from '@rollup/plugin-node-resolve';
 const sdk_Config = {
   input: 'src/index.tsx',
   external: ['react'],
@@ -22,12 +24,13 @@ const sdk_Config = {
     banner: '#!/usr/bin/env node',
   },
   plugins: [
+    // resolve(),
+    commonjs(),
     nodeExternals(),
     rollupTypescript({ tsconfig: './tsconfig.json' }),
     image(),
     postcss(),
-    nodeResolve({ preferBuiltins: false }), // or `true`
-    commonjs(),
+    // nodeResolve({ preferBuiltins: false }), // or `true`
 
     // globals(),
     // builtins(),
@@ -36,17 +39,21 @@ const sdk_Config = {
 
 const dev_web_Config = {
   input: 'src/index.tsx',
-  // external: ['react'],
   output: {
     file: 'lib/index.js',
     name: 'tool',
     format: 'iife',
-    globals: {
-      react: 'React',
-    },
-    sourcemap: true,
+    // sourcemap: true,
   },
   plugins: [
+    resolve({
+      // some package.json files have a "browser" field which specifies
+      // alternative files to load for people bundling for the browser. If
+      // that's you, either use this option or add "browser" to the
+      // "mainfields" option, otherwise pkg.browser will be ignored
+      browser: true,
+    }),
+    commonjs(),
     nodeExternals(),
     rollupTypescript({
       // "module": "esnext",
@@ -59,10 +66,9 @@ const dev_web_Config = {
     }),
     image(),
     postcss(),
-    nodeResolve({ preferBuiltins: false }), // or `true`
-    commonjs(),
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
+      preventAssignment: true,
     }),
     serve({
       // 开启本地服务
@@ -72,6 +78,7 @@ const dev_web_Config = {
       contentBase: '',
       historyApiFallback: true,
     }),
+    livereload(),
     alias({
       // 别名
       entries: [

@@ -20,7 +20,6 @@
     "baseUrl": "./",
     "skipLibCheck": true,
     "moduleResolution": "node",
-    "noUnusedParameters": true,
     "strictPropertyInitialization": false,
     "strict": true,
     "lib": [
@@ -31,6 +30,9 @@
         "src/*"
       ]
     },
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+
   },
   "exclude": [
     "node_modules",

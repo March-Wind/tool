@@ -20,9 +20,14 @@
 5. Ctrl + ~
 6. option + command + 左右
 7. 折叠和展开代码：option + command + {和}
+8. 谷歌截屏：打开需要截长图的网页，右键--检查--Shift + Command + P，输入“screen”，选择各种截屏的需要
 
 #### css 画三角，计算 border-width 值
 
 #### charles 破解版
 
 > http://macwk.com/
+
+#### curl 转语言请求
+
+> https://reqbin.com/req/c-dwjszac0/curl-post-json-example
