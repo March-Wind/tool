@@ -1,13 +1,5 @@
 {
   "resolveJsonModule": true,
-  "ts-node": {
-    "files": true,
-    "transpileOnly": true,
-    "moduleTypes": {
-      "src/**/*": "esm",
-      "src": "esm"
-    }
-  },
   "compilerOptions": {
     "module": "es2015",
     "declaration": false,
@@ -38,6 +30,7 @@
   "exclude": [
     "node_modules",
     "lib",
+    "__tests__",
     "jest.config.ts"
   ],
   "include": [

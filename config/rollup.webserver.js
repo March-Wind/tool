@@ -1,4 +1,4 @@
-import rollupTypescript from '@rollup/plugin-typescript';
+import rlps from '@rollup/plugin-typescript';
 import postcss from 'rollup-plugin-postcss';
 import image from '@rollup/plugin-image';
 import commonjs from '@rollup/plugin-commonjs';
@@ -11,33 +11,9 @@ import livereload from 'rollup-plugin-livereload';
 import replace from '@rollup/plugin-replace';
 import alias from '@rollup/plugin-alias';
 import path from 'path';
-import resolve from '@rollup/plugin-node-resolve';
-const sdk_Config = {
-  input: 'src/index.tsx',
-  external: ['react'],
-  output: {
-    file: 'lib/index.js',
-    format: 'cjs',
-    globals: {
-      react: 'React',
-    },
-    banner: '#!/usr/bin/env node',
-  },
-  plugins: [
-    // resolve(),
-    commonjs(),
-    nodeExternals(),
-    rollupTypescript({ tsconfig: './tsconfig.json' }),
-    image(),
-    postcss(),
-    // nodeResolve({ preferBuiltins: false }), // or `true`
+import resolve, { nodeResolve } from '@rollup/plugin-node-resolve';
 
-    // globals(),
-    // builtins(),
-  ],
-};
-
-const dev_web_Config = {
+export default {
   input: 'src/index.tsx',
   output: {
     file: 'lib/index.js',
@@ -55,7 +31,7 @@ const dev_web_Config = {
     }),
     commonjs(),
     nodeExternals(),
-    rollupTypescript({
+    rlps({
       // "module": "esnext",
       // "removeComments": true,
       // "esModuleInterop": true,
@@ -93,14 +69,3 @@ const dev_web_Config = {
     // builtins(),
   ],
 };
-let config = null;
-switch (process.env.BUILD_TYPE) {
-  case 'dev:web':
-    config = dev_web_Config;
-    break;
-  case 'sdk':
-    config = sdk_Config;
-    break;
-}
-
-export default config;
