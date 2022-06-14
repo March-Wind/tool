@@ -78,7 +78,9 @@ const UnicodeDecode = (str: string, hasPre = true): string => {
   }
   const reg = hasPre ? /\\u[0-9a-f]{4}/g : /u[0-9a-f]{4}/g;
   return str.replace(reg, (char) => {
-    return eval('"' + (hasPre ? '' : '\\') + char + '"');
+    // 切换实现方式，因为打扰了rollup进行树摇：https://rollupjs.org/guide/en/#avoiding-eval
+    return new Function(`return ("${hasPre ? char : '\\' + char}")`)();
+    // return eval('"' + (hasPre ? '' : '\\') + char + '"');
   });
 };
 

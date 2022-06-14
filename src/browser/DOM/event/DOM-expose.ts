@@ -3,10 +3,11 @@ interface Options {
   nested?: boolean; // 嵌套的滚动监听
   once?: boolean; // 一次
 }
-const expose = (dom: Element, cb?: Function, options: Options) => {
+const expose = (dom: Element, cb?: Function, options: Options = {}) => {
   const _options: Options = {
     nested: false,
     once: true,
+    ...options,
   };
   const handle = () => {
     const position = dom.getBoundingClientRect();
