@@ -15,4 +15,4 @@ const factorial = (n: number, grab = n): number => {
   }
   return result;
 };
-export default factorial;
+export { factorial };
