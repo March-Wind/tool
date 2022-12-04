@@ -2,14 +2,13 @@
   "resolveJsonModule": true,
   "compilerOptions": {
     "module": "es2015",
-    "declaration": true,
+    "declaration": false,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "target": "esnext",
     "sourceMap": false,
-    "outDir": "../lib",
     "jsx": "react",
     "rootDir": "../src",
     "baseUrl": "../src",
@@ -32,8 +31,6 @@
     "../node_modules",
     "../lib",
     "../jest.config.ts",
-    "../__tests__",
-    "../public"
   ],
   "include": [
     "../**/*"

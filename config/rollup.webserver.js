@@ -49,10 +49,17 @@ export default {
     serve({
       // 开启本地服务
       open: true,
-      openPage: '/public/index.html', // 打开的页面
+      openPage: 'index.html', // 打开的页面
       port: 3000,
-      contentBase: '',
-      historyApiFallback: true,
+      contentBase: 'lib',
+      // historyApiFallback: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        foo: 'bar',
+      },
+      proxy: {
+        'xthirdparty-toolkit-web': 'http://passport.test.ximalaya.com/xthirdparty-toolkit-web',
+      },
     }),
     livereload(),
     alias({

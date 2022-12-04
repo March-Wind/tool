@@ -1,19 +1,27 @@
 {
-  "name": "tool",
+  "name": "@marchyang/tool",
   "version": "1.0.0",
   "description": "",
-  "main": "./lib/index.js",
+  "main": "./lib/index.cjs.js",
+  "module": "./lib/index.esm.js",
+  "types": "./lib/types",
   "scripts": {
+    "build:sdk": "npm run build:sdk:umd && npm run build:sdk:cjs && npm run build:sdk:esm",
+    "build:sdk:umd": "cross-env BUILD_TYPE=umd rollup --config ./config/rollup.sdk.js",
+    "build:sdk:cjs": "cross-env BUILD_TYPE=cjs rollup --config ./config/rollup.sdk.js",
+    "build:sdk:esm": "cross-env BUILD_TYPE=esm rollup --config ./config/rollup.sdk.js",
+    "build:ts": "tsc -p ./config/tsconfig.ts.json && tsc-alias  -p ./config/tsconfig.ts.json",
     "dev:web": "cross-env BUILD_TYPE=dev:web rollup --c config/rollup.webserver.js -w",
+
     "dev:node": "TS_NODE_PROJECT=./tsconfig.json node --loader ts-node/esm  ./src/test.ts-node.ts",
     "dev:node:debug": "TS_NODE_PROJECT=./tsconfig.json node --inspect-brk  --loader ts-node/esm  ./src/test.ts-node.ts",
-    "build:sdk": "npm run tsc && cross-env BUILD_TYPE=sdk rollup --config ./config/rollup.sdk.js",
-    "tsc": "tsc && tsc-alias",
+
     "rollup": "rollup --config ./config/rollup.config.js",
     "prepublish": "npm run build:sdk",
     "eslint": "eslint ./src/**/* --fix",
     "test": "jest --passWithNoTests",
-    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand  __tests__/javascript-language/promise/concurrency.ts"
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand  __tests__/algorithm/heap-sort/index.ts",
+    "test2": "node ./node_modules/jest/bin/jest.js --runInBand  __tests__/algorithm/heap-sort/index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -56,6 +64,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-serve": "^1.1.0",
+    "rollup-plugin-serve-proxy": "^1.1.4",
     "rollup-plugin-typescript": "^1.0.1",
     "stylelint": "^14.3.0",
     "stylelint-config-prettier": "^9.0.3",

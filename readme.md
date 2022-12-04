@@ -31,3 +31,27 @@
 #### curl 转语言请求
 
 > https://reqbin.com/req/c-dwjszac0/curl-post-json-example
+
+### webpack 热更新原理
+
+> https://www.163.com/dy/article/GDRFBIJL0511FQO9.html
+
+> https://juejin.cn/post/6844903953092591630
+
+> https://github.com/Jocs/jocs.github.io/issues/15
+
+### rollup 小插件开发
+
+> https://juejin.cn/post/7023284800966361124
+
+
+### mac 调试react-native
+1. 电脑内调试安卓：
+  > MAC下网易MuMu模拟器调试ReactNative: https://blog.csdn.net/u011215669/article/details/104504279
+
+  > mac下安装adb环境的三种方式: https://juejin.cn/post/7011002186641932324
+
+### 国内镜像源
+> https://tuna.moe/
+### taro RN
+1. 设置字体一定要给Text组件设置字体，嵌套Text的属性并不继承,容易造成字体很大的问题。
