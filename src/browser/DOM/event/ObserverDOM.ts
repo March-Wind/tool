@@ -1,5 +1,5 @@
 import EventEmitter from '@/tools/eventEmitter';
-import scrollToBottom from '@/browser/DOM/event/smoothscroll';
+// import scrollToBottom from '@/browser/DOM/event/smoothscroll';
 type A = Omit<MutationRecord, 'type' | 'target'>;
 type CB = {
   [K in MutationRecord['type']]: (params: MutationRecord) => void;
@@ -47,9 +47,9 @@ class ObserverDOM extends EventEmitter<ECB> {
   }
   public keepScrollBottom() {
     this.on('childList', (mutation) => {
-      scrollToBottom(this.targetDOM);
+      // scrollToBottom(this.targetDOM); // todo
     });
   }
 }
 
-export default ObserverDOM;
+export { ObserverDOM };

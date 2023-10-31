@@ -1,9 +1,9 @@
 import { browserKernel } from './browser/browserKernel';
 import { browserName } from './browser/browserName';
-import { systemName } from './browser/systemName';
+export * from './browser/system-devices';
 import { isWXMiniProgram } from './browser/isWXMiniProgram';
 import { isNode } from './node';
-export { browserKernel, browserName, systemName, isWXMiniProgram, isNode };
+export { browserKernel, browserName, isWXMiniProgram, isNode };
 
 /** mac下各浏览器UA,记录在20201112 */
 // edge："Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36 Edg/86.0.622.68"

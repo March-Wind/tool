@@ -2,10 +2,10 @@
  * css 画三角形给长宽和底部是哪个方向，给出样式
  * @param {*} width
  * @param {*} height
- * @param {string} [bottomType='bottom']
+ * @param {string} [bottomType='bottom'] 底部位置
  * 参考：https://cxyzjd.com/article/weixin_39760068/112410543
  */
-const arrow = (width: number, height: number, bottomType = 'bottom', color = '#000') => {
+const createArrow = (width: number, height: number, bottomType: 'bottom' | 'top' | 'left' | 'right' = 'bottom', color = '#000') => {
   // 以底部是下为例，高度值放在下，左右值是宽度的一半
   const top = 0;
   const left = width / 2;
@@ -32,4 +32,4 @@ const arrow = (width: number, height: number, bottomType = 'bottom', color = '#0
   }
   return style;
 }
-export default arrow;
+export { createArrow };

@@ -1,14 +1,18 @@
 import 'jest-extended';
 import { Interface } from 'readline';
+import WX from './wx/typing/jweixin'
 declare global {
+  declare const wx: WX;
   // window上挂载
-  declare interface Window {}
+  declare interface Window {
+    wx: WX;
+  }
   // node上挂载
   namespace NodeJS {
-    interface Global {}
+    interface Global { }
   }
   type ValueOf<T> = T[keyof T];
-  type NonArrayObject = object & { length?: never; [x: string]: any };
+  type NonArrayObject = object & { length?: never;[x: string]: any };
   type Writeable<T extends { [x: string]: any }> = {
     -readonly [P in keyof T]: T[P];
   };
@@ -31,7 +35,7 @@ declare global {
   /**两种表达构造函数形式-start */
   interface Constructable<T> {
     [k: string]: any;
-    new (): any;
+    new(): any;
     prototype?: any;
   }
   type Constructor<T> = new (...args: any) => T;
@@ -41,6 +45,6 @@ declare global {
     // constructor: () => any;
     // prototype?: any;
     prototype: T;
-    new (): T;
+    new(): T;
   }
 }

@@ -1,5 +1,5 @@
 import { isArray, isNumber } from '@/javascript-language/variable-type';
-import factorial from '@/algorithm/factorial';
+import { factorial } from '@/algorithm/factorial';
 const permute = <T extends any[]>(arr: T, grab?: number, includeBelow = false): T[] => {
   if (!isArray(arr) || !arr.length) {
     return arr;

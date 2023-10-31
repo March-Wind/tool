@@ -1,10 +1,10 @@
 import { isFunction } from '../variable-type';
 type PromiseFn = () => Promise<unknown>;
-interface ConditionNext {
-  fecth: PromiseFn;
-  nextCondition: (reaponse: unknown) => boolean;
+interface ChainItem {
+  fetch: PromiseFn;
+  nextCondition: (response: unknown) => boolean;
 }
-type PromiseItem = PromiseFn | ConditionNext;
+type PromiseItem = PromiseFn | ChainItem;
 /**
  * 链式调用
  * @param {PromiseItem[]} promiseFns
@@ -18,8 +18,8 @@ const chain = (promiseFns: PromiseItem[]): Promise<unknown> => {
       if (promiseFns.length <= index) {
         return;
       }
-      const item = promiseFns[index];
-      const promiseFn = isFunction(item) ? item : item.fecth;
+      const item = promiseFns[index]!;
+      const promiseFn = isFunction(item) ? item : item.fetch;
       const nextCondition = isFunction(item) ? () => true : item.nextCondition;
       promiseFn()
         .then((response: any) => {

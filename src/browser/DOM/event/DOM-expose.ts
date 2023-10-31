@@ -1,4 +1,4 @@
-import supportPassive from './passive-supported';
+import { supportPassive } from './passive-supported';
 interface Options {
   nested?: boolean; // 嵌套的滚动监听
   once?: boolean; // 一次
@@ -21,4 +21,4 @@ const expose = (dom: Element, cb?: Function, options: Options = {}) => {
   window.addEventListener('scroll', handle, supportPassive() ? { passive: true, capture: true } : true);
 };
 
-export default expose;
+export { expose };

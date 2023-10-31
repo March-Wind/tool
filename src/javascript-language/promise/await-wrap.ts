@@ -1,16 +1,11 @@
-interface PartOfResult<T> {
-  fulfilled: T;
-  rejected: any;
-}
-type StateType = keyof PartOfResult<any>;
 
-interface Result<T> extends PartOfResult<T> {
-  state: StateType;
-}
+type StateType = 'fulfilled' | 'rejected';
+
+type Result<F = any, R = any> = [F | undefined, R | undefined, StateType]
 
 const awaitWrap = async <T extends Promise<any>>(p: T): Promise<Result<Awaited<T>>> => {
-  let fulfilled;
-  let rejected;
+  let fulfilled: Awaited<T> | undefined;
+  let rejected: any;
   let state: StateType;
   try {
     fulfilled = await p;
@@ -19,11 +14,11 @@ const awaitWrap = async <T extends Promise<any>>(p: T): Promise<Result<Awaited<T
     rejected = error;
     state = 'rejected';
   }
-  return {
+  return [
     fulfilled,
     rejected,
-    state,
-  };
+    state
+  ]
 };
 
 export default awaitWrap;

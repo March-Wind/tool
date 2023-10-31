@@ -64,6 +64,10 @@ export const isString = function (v: unknown): v is string {
 export const isPromise = function (v: unknown): v is Promise<unknown> {
   return Object.prototype.toString.call(v) === '[object Promise]';
 };
+// 判断是不是正则
+export const isRegExp = function (v: unknown): v is RegExp {
+  return Object.prototype.toString.call(v) === '[object RegExp]';
+}
 export const isEqual = () => {
   return false;
 }; // to do

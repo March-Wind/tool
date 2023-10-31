@@ -35,7 +35,12 @@ module.exports = {
       },
     ],
     '@typescript-eslint/no-duplicate-imports': 'error',
-    '@typescript-eslint/explicit-member-accessibility': 'error',
+    "@typescript-eslint/explicit-member-accessibility": [
+      "error",
+      {
+        "accessibility": "no-public"
+      }
+    ],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'jsx-control-statements/jsx-jcs-no-undef': ['off'],

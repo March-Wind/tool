@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { resolve } from 'path/posix';
-import RouterEvent from '@/browser/hooks/routeEvents';
+import { RouterEvent } from '@/browser/hooks/routeEvents';
 describe('router event', () => {
   let dom: JSDOM;
   let router: RouterEvent;

@@ -12,7 +12,7 @@ let supportPassive = (): boolean => {
     });
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    window.addEventListener('_supportPassive' as keyof WindowEventMap, () => {}, options);
+    window.addEventListener('_supportPassive' as keyof WindowEventMap, () => { }, options);
   } catch (err) {
     console.log(err);
   }
@@ -20,4 +20,4 @@ let supportPassive = (): boolean => {
   return passiveSupported;
 };
 
-export default supportPassive;
+export { supportPassive };

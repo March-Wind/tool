@@ -1,3 +1,14 @@
+.2line-text {
+  /* 设置宽度  */
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
 // IOS点击文本会有阴影，改成透明
 .removeClickBg{
   -webkit-tap-highlight-color: transparent;
@@ -16,7 +27,7 @@
     content:'';
     width:200%;
     height:200%;
-    border-top:1px solid $color;
+    border-top:1px solid #EEE;
     transform: scale(.5);
   }
 }

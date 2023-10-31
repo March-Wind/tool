@@ -5,7 +5,7 @@ const isWXMiniProgram = (): Promise<boolean> => {
       const timer = setInterval(() => {
         if (window.wx && window.wx.miniProgram && window.wx.miniProgram.getEnv) {
           clearInterval(timer);
-          window.wx.miniProgram.getEnv((res) => {
+          window.wx.miniProgram.getEnv((res: any) => {
             const { miniprogram } = res;
             resolve(miniprogram);
           });

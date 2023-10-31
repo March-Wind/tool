@@ -1,4 +1,4 @@
-import EventEmitter from '../tools/eventEmitter'
+import EventEmitter from '@/tools/eventEmitter'
 
 type EventType = 'pushState' | 'replaceState' | 'go' | 'back' | 'forward' | 'forwardButton' | 'backButton' | 'hashChange' | 'popstate';
 type CBType = {
@@ -23,16 +23,16 @@ interface CB extends CBType {
  * @extends {EventEmitter<EventType>}
  */
 class RouterEvent extends EventEmitter<CB> {
-  self: EventEmitter<EventType>;
-  routeStack: string[] = [window.location.href]; // 路由栈
-  prevIndex = 0; // 前一个路由位置
-  currentIndex = 0; // 当前路由位置
-  laggingPopStateEvent: Function | null = null; // 挂起的PopStateEvent，等待触发。
-  hashBackOrForward_pauseAddRoute2Stack = false; // hash时回退和前进都触发hashchangeEvent，但是没有新路由产生，所以
+  protected self: EventEmitter<EventType>;
+  protected routeStack: string[] = [window.location.href]; // 路由栈
+  protected prevIndex = 0; // 前一个路由位置
+  protected currentIndex = 0; // 当前路由位置
+  protected laggingPopStateEvent: Function | null = null; // 挂起的PopStateEvent，等待触发。
+  protected hashBackOrForward_pauseAddRoute2Stack = false; // hash时回退和前进都触发hashchangeEvent，但是没有新路由产生，所以
   //popstateEvent只用来监听前进和后退按钮，
   //此外还触发PopstateEvent的还有location.hash、页面加载时、history.back()、history.forward()
-  pausePopstateEvent = false;
-  constructor() {
+  protected pausePopstateEvent = false;
+  public constructor() {
     super()
     this.onChange();
   }
@@ -62,17 +62,17 @@ class RouterEvent extends EventEmitter<CB> {
       this.currentIndex += delta;
     }
   }
-  pushStateEvent(args: Parameters<History["pushState"]>) {
+  public pushStateEvent(args: Parameters<History["pushState"]>) {
     this.setRoute();
     console.log('pushStateEvent');
     this.emit('pushState', ...args)
   }
-  replaceStateEvent(args: Parameters<History["replaceState"]>) {
+  public replaceStateEvent(args: Parameters<History["replaceState"]>) {
     console.log('replaceStateEvent');
     this.setRoute('replace');
     this.emit('replaceState', ...args)
   }
-  hashChangeEvent(event: HashChangeEvent) {
+  public hashChangeEvent(event: HashChangeEvent) {
     debugger
     console.log('hashChangeEvent');
     this.emit('hashChange', event);
@@ -82,7 +82,7 @@ class RouterEvent extends EventEmitter<CB> {
     }
     this.setRoute();
   }
-  popstateEvent(event: PopStateEvent) {
+  public popstateEvent(event: PopStateEvent) {
     debugger
     // console.log('popstateEvent', event);
     this.emit('popstate', event)
@@ -128,27 +128,27 @@ class RouterEvent extends EventEmitter<CB> {
       // 相等是说明是hash路由重复跳了当前指针路由，
     }
   }
-  goEvent(args: Parameters<History['go']>) {
+  public goEvent(args: Parameters<History['go']>) {
     this.emit('go', ...args)
   }
-  backEvent(delta = -1) { // js回退事件
+  public backEvent(delta = -1) { // js回退事件
     console.log('js_api回退');
     this.emit('back');
     this.hashBackOrForward_pauseAddRoute2Stack = true;
     this.moveCurrentIndex(delta);
   }
-  forwardEvent(delta = 1) { // js前进事件
+  public forwardEvent(delta = 1) { // js前进事件
     console.log('js_api前进');
     this.emit('forward');
     this.hashBackOrForward_pauseAddRoute2Stack = true;
     this.moveCurrentIndex(delta)
   }
-  browserForwardButtonEvent() {// 浏览器的前进按钮
+  public browserForwardButtonEvent() {// 浏览器的前进按钮
     console.log('浏览器的前进按钮');
     this.emit('forwardButton');
     this.moveCurrentIndex(1)
   }
-  browserBackButtonEvent() {// 浏览器的前进按钮
+  public browserBackButtonEvent() {// 浏览器的前进按钮
     console.log('浏览器的后退按钮');
     this.emit('backButton');
     this.moveCurrentIndex(-1)
@@ -197,7 +197,7 @@ class RouterEvent extends EventEmitter<CB> {
       this.replaceStateEvent(args);
     }
   }
-  onChange() {
+  public onChange() {
     window.addEventListener("hashchange", this.hashChangeEvent.bind(this)); // 无论在什么位置，如果location.hash如果和当前一样，不触发监听函数
     window.addEventListener("popstate", this.popstateEvent.bind(this)); // 1、history.back()或者history.forward()；2、触发，页面加载chrome和safari触发；3.location.href = "当前URL"也触发
 
@@ -216,7 +216,6 @@ export {
   RouterEvent
 }
 
-export default RouterEvent;
 
 // 参考W3C：https://html.spec.whatwg.org/multipage/history.html#the-history-interface
 
